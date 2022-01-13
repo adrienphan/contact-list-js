@@ -6,12 +6,10 @@ class Contact {
         this.firstName = firstName;
         this.phone = phone;
     }
-    // DisplayContact(){
-    //     return `<tbody><tr><th scope="row"> ${this.civ}</th><td>${this.name}</td><td>${this.firstName}</td><td>${this.phone}</td></tr></tbody>`;
-    // }
 }
 //***********variables
-let contacts = [new Contact("Mr", "Phan", "Adrien", "0667442056"), new Contact("Mme", "Augustini", "Marie", "0123456789")];
+// let contacts = [new Contact("Mr", "Phan", "Adrien", "0667442056"), new Contact("Mme", "Augustini", "Marie", "0123456789")];
+let contacts = GetContactsFromStorage();
 let isDisplayed = false;
 //***********elements
 const contactDisplayTable = document.getElementById('contact-display');
@@ -130,6 +128,7 @@ function CreateNewContact(){
     if(CheckPhoneNumber(phoneNbr) && CheckName(name) && CheckName(firstName)){
         contacts.push(new Contact(civ, name, firstName, phoneNbr));
         if(isDisplayed) RefreshContacts();
+        SetContactsToStorage();
         newContactModal.hide();
         console.log(newContactModal);
         ToastAlert("Nouveau contact enregistré !", "green")
@@ -144,6 +143,7 @@ function CreateNewContact(){
 //Refreshes contacts page
 function RefreshContacts(){
     DisplayBlankPage();
+    SetContactsToStorage();
     DisplayContacts();
 }
 //returns true if phone number is actually a french phone number
@@ -159,9 +159,20 @@ function CheckName(name){
         return true;
     } else return false;
 }
+//Displays a toast alert with given message and background color
 function ToastAlert(message, color){
     alertToastElement.style.backgroundColor = color;
     toastMessage.style.color = "#fff";
     toastMessage.innerHTML = message;
     alertToast.show();
+}
+//Returns the content of item "contacts" in local storage
+function GetContactsFromStorage(){
+    if (localStorage.getItem("contacts")===null || localStorage.getItem("contacts") === ""){
+        localStorage.setItem("contacts", "[]");
+    }
+    return JSON.parse(localStorage.getItem("contacts"));
+}
+function SetContactsToStorage(){
+    localStorage.setItem("contacts", JSON.stringify(contacts));
 }
