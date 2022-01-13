@@ -100,7 +100,7 @@ function DisplayContacts(){
     isDisplayed = true;
 }
 function DeleteContact(e){
-    //delete index in contacts list
+    //delete index in contacts object
     deleteIndex = e.currentTarget.associatedContact.id.substr(7);
     suppress = contacts.splice(deleteIndex, 1);
     //delete contact in DOM
@@ -153,6 +153,7 @@ function CheckPhoneNumber(phoneNbr){
         return true;
     } else return false;
 }
+//returns true if name containes only authorized characters
 function CheckName(name){
     const nameValidator = /^[a-z ,.'-]+$/i;
     if (nameValidator.test(name)){
@@ -173,6 +174,7 @@ function GetContactsFromStorage(){
     }
     return JSON.parse(localStorage.getItem("contacts"));
 }
+//saves the contacts object to localStorage
 function SetContactsToStorage(){
     localStorage.setItem("contacts", JSON.stringify(contacts));
 }
