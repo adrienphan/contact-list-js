@@ -17,14 +17,44 @@ function displaySection( contactList = 'none', contactAdd = 'none'){
 
 function displayContactList(){
 
+    /* si je n'ai aucun contact je dois afficher un message */
+
+    // je recupere les contact
+    
+
+    // si vide ( voir si fonction empty ou tab vide ou longueur 0)
+        // je supprime l'element avec la classe table 
+        // je rajoute une petite alert pour dire qu'il n'y a aucun contact 
+
 }
 
+// mettre en place l'objet qui représentera un contact 
 function createContact(){
-
+    const contact = {
+        'firstName' : form.firstName.value,
+        'lastName'  : form.lastName.value,
+        'civilité'  : form.sexe.value,
+        'telephoneNumber': form.telephoneNumber.value
+    }
+    return contact;
 }
 
-function addContact(){
+function addContact(contact){
 
+    // console.log(contact);
+
+    // je stocke mon contact dans un tableau d'objet ( push dans un tableau )
+    
+    let tabContact = JSON.parse(localStorage.getItem('ContactList'));
+
+    if(tabContact == null)
+    {
+        tabContact = [];
+    }
+
+    tabContact.push(contact);
+
+    localStorage.setItem('ContactList',JSON.stringify(tabContact));
 
 }
 
@@ -63,21 +93,14 @@ function submitAddForm(event){
     // implique que tout mes tests sont concluant ( nom, prenom, tel sont bons)
     if(formResult == true){
         // console.log('all is good ');
+        const newContact = createContact(); // je crée mon contact
+        addContact(newContact); // j'ajoute mon contact 
         return    addFlashMessage('success', ' le contact a bien été créé');
     }
     return addFlashMessage('danger',' erreur a la création du contact')
 
 }
 
-
-function submitAddForm2(event){
-
-    event.preventDefault();
-
-    return (checkString(form.lastName) && checkString(form.firstName) && checkTel(form.telephoneNumber)) ? addFlashMessage('success', ' le contact a bien été créé')
-    : addFlashMessage('danger',' erreur a la création du contact')
-
-}
 
 // verifie une chaine de caractere 
 function checkString(element){
@@ -155,3 +178,11 @@ document.addEventListener('click', event =>{
     }
         
 });
+
+
+
+
+
+
+
+

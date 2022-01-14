@@ -57,8 +57,7 @@ formInputPhone.addEventListener("blur", (e)=>{
  */
 function DisplayContacts(){
     let contactIndex;
-    let deleteIndex;
-    let suppress;
+    contacts = GetContactsFromStorage();
     //If contacts are not displayed, displays them
     if(!isDisplayed){
         contactIndex = 0;
@@ -66,7 +65,6 @@ function DisplayContacts(){
         //for each contact in the list, creates a row and fills it
         for (const contact of contacts) {
             //Create new element
-            let deleteIndex;
             let tbody = document.createElement("tbody");
             let tr = document.createElement("tr");
             let civ = document.createElement("td");
